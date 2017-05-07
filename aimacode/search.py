@@ -181,6 +181,7 @@ def depth_first_graph_search(problem):
 def breadth_first_search(problem):
     "[Figure 3.11]"
     node = Node(problem.initial)
+    sys.exit()
     if problem.goal_test(node.state):
         return node
     frontier = FIFOQueue()

@@ -6,7 +6,7 @@ from aimacode.search import (breadth_first_search, astar_search,
     greedy_best_first_graph_search, depth_limited_search,
     recursive_best_first_search)
 from my_air_cargo_problems import air_cargo_p1, air_cargo_p2, air_cargo_p3
-
+import sys
 PROBLEM_CHOICE_MSG = """
 Select from the following list of air cargo problems. You may choose more than
 one by entering multiple selections separated by spaces.
@@ -48,9 +48,9 @@ class PrintableProblem(InstrumentedProblem):
     def __repr__(self):
         return '{:^10d}  {:^10d}  {:^10d}'.format(self.succs, self.goal_tests, self.states)
 
-
+#  problem = object AirCargoProblem ,
+#  search_function = function breadth_first_search()
 def run_search(problem, search_function, parameter=None):
-
     start = timer()
     ip = PrintableProblem(problem)
     if parameter is not None:
@@ -61,6 +61,7 @@ def run_search(problem, search_function, parameter=None):
     print("\nExpansions   Goal Tests   New Nodes")
     print("{}\n".format(ip))
     show_solution(node, end - start)
+    sys.exit()
     print()
 
 
@@ -90,13 +91,18 @@ def main(p_choices, s_choices):
     problems = [PROBLEMS[i-1] for i in map(int, p_choices)]
     searches = [SEARCHES[i-1] for i in map(int, s_choices)]
 
-    for pname, p in problems:
+    # print((problems[0]))
+    # print(searches[0])
 
+
+
+    for pname, p in problems:
         for sname, s, h in searches:
             hstring = h if not h else " with {}".format(h)
             print("\nSolving {} using {}{}...".format(pname, sname, hstring))
 
-            _p = p()
+            print(p)
+            _p = p() # Object AirCargoProblem
             _h = None if not h else getattr(_p, h)
             run_search(_p, s, _h)
 
@@ -107,7 +113,7 @@ def show_solution(node, elapsed_time):
         print("{}{}".format(action.name, action.args))
 
 if __name__=="__main__":
-    parser = argparse.ArgumentParser(description="Solve air cargo planning problems " + 
+    parser = argparse.ArgumentParser(description="Solve air cargo planning problems " +
         "using a variety of state space search methods including uninformed, greedy, " +
         "and informed heuristic search.")
     parser.add_argument('-m', '--manual', action="store_true",
