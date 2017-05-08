@@ -21,8 +21,10 @@ class Action:
     def __init__(self, action, precond, effect):
         self.name = action.op
         self.args = action.args
+
         self.precond_pos = precond[0]
         self.precond_neg = precond[1]
+
         self.effect_add = effect[0]
         self.effect_rem = effect[1]
 

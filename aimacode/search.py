@@ -8,6 +8,7 @@ from .utils import (
     is_in, memoize, print_table, Stack, FIFOQueue, PriorityQueue, name
 )
 
+from timeit import default_timer as timer
 import sys
 
 infinity = float('inf')
@@ -96,8 +97,16 @@ class Node:
 
     def expand(self, problem):
         "List the nodes reachable in one step from this node."
-        return [self.child_node(problem, action)
-                for action in problem.actions(self.state)]
+        out = []
+
+        for action in problem.actions(self.state):
+            out += [self.child_node(problem, action)]
+
+        # out = [self.child_node(problem, action)
+        #         for action in problem.actions(self.state)]
+
+        return out
+
 
     def child_node(self, problem, action):
         "[Figure 3.10]"
@@ -181,7 +190,6 @@ def depth_first_graph_search(problem):
 def breadth_first_search(problem):
     "[Figure 3.11]"
     node = Node(problem.initial)
-    sys.exit()
     if problem.goal_test(node.state):
         return node
     frontier = FIFOQueue()

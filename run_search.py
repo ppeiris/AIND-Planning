@@ -61,7 +61,6 @@ def run_search(problem, search_function, parameter=None):
     print("\nExpansions   Goal Tests   New Nodes")
     print("{}\n".format(ip))
     show_solution(node, end - start)
-    sys.exit()
     print()
 
 
@@ -100,8 +99,6 @@ def main(p_choices, s_choices):
         for sname, s, h in searches:
             hstring = h if not h else " with {}".format(h)
             print("\nSolving {} using {}{}...".format(pname, sname, hstring))
-
-            print(p)
             _p = p() # Object AirCargoProblem
             _h = None if not h else getattr(_p, h)
             run_search(_p, s, _h)
