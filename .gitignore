@@ -5,3 +5,6 @@ __pycache__
 *.json
 .idea/
 tests/.cache/v/cache/lastfailed
+*.aux
+*.log
+*.gz
