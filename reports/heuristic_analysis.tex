@@ -7,7 +7,8 @@
 \title{Experiment with Air Cargo Problem}
 \maketitle
 
-\section*{Air Cargo Problem}
+\section*{Implement a Planning Search}
+
 
 All the Air Cargo problems uses the following action schema
 
@@ -25,6 +26,13 @@ Action(Fly(p, from, to),
 	EFFECT: ¬ At(p, from) ∧ At(p, to))
 \end{verbatim}
 
+\subsection*{Part 1 - Planning problems:}
+
+\subsubsection*{Analysis}
+
+Table \ref{tbl:p1p1} to \ref{tbl:p1p3} show the metric for uniformed planning searches for {\tt air\_cargo\_p1, air\_cargo\_p2, air\_cargo\_p3} problems. By looking at the all the metrics, we can see not all the search methods does not give us the optimal result. Depth first graph search for problem 2 and third does not reach optimal search. Given the execution time, the Uniform cost search provide the best search results during this experiment.
+
+
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
@@ -37,6 +45,7 @@ Optimality & Yes & Yes & Yes\\ \hline
 \end{tabular}
 \end{center}
 \caption{Metrixs for non-huristic planning solution searches for {\tt air\_cargo\_p1}}
+\label{tbl:p1p1}
 \end{table}
 
 \begin{table}[h]
@@ -51,8 +60,8 @@ Optimality & Yes & No & Yes\\ \hline
 \end{tabular}
 \end{center}
 \caption{Metrixs for non-huristic planning solution searches for {\tt air\_cargo\_p2}}
+\label{tbl:p1p2}
 \end{table}
-
 
 \begin{table}[h]
 \begin{center}
@@ -66,9 +75,56 @@ Optimality & Yes & No & Yes\\ \hline
 \end{tabular}
 \end{center}
 \caption{Metrixs for non-huristic planning solution searches for {\tt air\_cargo\_p3}}
+\label{tbl:p1p3}
 \end{table}
 
+\subsection*{Part 2 - Domain-independent heuristics:}
+\subsubsection*{Analysis}
+Table \ref{tbl:p2p1}  to  \ref{tbl:p2p3} shows the problems {\tt air\_cargo\_p1, air\_cargo\_p2 and air\_cargo\_p3} with 3 different heuristics functions. All the functions reach the optimal solution including the {\tt A* search with level sum heuristic} even it took over 10min to run (took 22 minutes. data left black in table 3 ).  By looking at all the running times of each function, it is evident the {\tt  A* search with ignore predictions heuristic} perform the best.
 
-\bibliography{articles}{}
-\bibliographystyle{plain}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+{\tt air\_cargo\_p1} & A* (h1 heuristic) & A* (ignore predictions heuristic) & A* (level sum heuristic)\\ \hline\hline
+Node Expansions& 55  &  41 & 11 \\ 
+Goal Tests & 57 & 43  & 13 \\ 
+Time Elapsed& 0.06 & 0.06  & 1.8 \\ 
+Optimality & Yes & Yes & Yes \\ \hline
+\end{tabular}
+\end{center}
+\caption{metrics of A* searches for {\tt air\_cargo\_p1}}
+\label{tbl:p2p1}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+{\tt air\_cargo\_p1} & A* (h1 heuristic) & A* (ignore predictions heuristic) & A* (level sum heuristic)\\ \hline\hline
+Node Expansions& 4761  & 1450  & 86 \\ 
+Goal Tests & 4763 & 1452  & 88 \\ 
+Time Elapsed& 18.3 & 6.9  & 277 \\ 
+Optimality & Yes & Yes & Yes \\ \hline
+\end{tabular}
+\end{center}
+\caption{metrics of A* searches for {\tt air\_cargo\_p2}}
+\label{tbl:p2p2}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+{\tt air\_cargo\_p1} & A* (h1 heuristic) & A* (ignore predictions heuristic) & A* (level sum heuristic)\\ \hline\hline
+Node Expansions& 17615  &  4728 & -- \\ 
+Goal Tests &17617  &  4730 & -- \\ 
+Time Elapsed& 77 & 25  & -- \\ 
+Optimality & Yes & Yes & -- \\ \hline
+\end{tabular}
+\end{center}
+\caption{metrics of A* searches for {\tt air\_cargo\_p3}}
+\label{tbl:p2p3}
+\end{table}
 \end{document}
